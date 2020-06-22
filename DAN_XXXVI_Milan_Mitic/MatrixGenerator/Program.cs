@@ -41,10 +41,13 @@ namespace MatrixGenerator
         /// </summary>
         public static void GenerateMatrix()
         {
-            matrix = new int[100, 100];
             lock (l)
             {
+                while (array == null)
+                {
                 Monitor.Wait(l);
+                }
+                matrix = new int[100, 100];
                 int counter = 0;
                 for (int i = 0; i < matrix.GetLength(0); i++)
                 {
@@ -69,14 +72,12 @@ namespace MatrixGenerator
         /// </summary>
         public static void GenerateNumbers()
         {
+            array = new int[10000];
             lock (l)
             {
-                array = new int[10000];
                 for (int i = 0; i < array.Length; i++)
                 {
-
                     array[i] = r.Next(10, 100);
-
                 }
                 Monitor.Pulse(l);
             }
@@ -92,6 +93,7 @@ namespace MatrixGenerator
             int counter = 0;
 
             using (StreamWriter sw = new StreamWriter("../../numbers.txt", true))
+            {
                 for (int i = 0; i < matrix.GetLength(0); i++)
                 {
                     for (int j = 0; j < matrix.GetLength(0); j++)
@@ -101,19 +103,18 @@ namespace MatrixGenerator
                             arrayForFile[counter] = matrix[i, j];
                             try
                             {
-
                                 sw.WriteLine(arrayForFile[counter]);
-
                                 counter++;
                             }
                             catch
                             {
+                                continue;
                             }
                         }
                     }
                 }
+            }
         }
-
 
         /// <summary>
         /// reads all lines from a txt file and writing them on a console
