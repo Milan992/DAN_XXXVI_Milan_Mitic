@@ -1,10 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 
 namespace MatrixGenerator
 {
@@ -94,28 +90,30 @@ namespace MatrixGenerator
         {
             arrayForFile = new int[10000];
             int counter = 0;
-            for (int i = 0; i < matrix.GetLength(0); i++)
-            {
-                for (int j = 0; j < matrix.GetLength(0); j++)
+
+            using (StreamWriter sw = new StreamWriter("../../numbers.txt", true))
+                for (int i = 0; i < matrix.GetLength(0); i++)
                 {
-                    if (matrix[i, j] % 2 == 1)
+                    for (int j = 0; j < matrix.GetLength(0); j++)
                     {
-                        arrayForFile[counter] = matrix[i, j];
-                        try
+                        if (matrix[i, j] % 2 == 1)
                         {
-                            using (StreamWriter sw = new StreamWriter("../../numbers.txt", true))
+                            arrayForFile[counter] = matrix[i, j];
+                            try
                             {
+
                                 sw.WriteLine(arrayForFile[counter]);
+
+                                counter++;
                             }
-                            counter++;
-                        }
-                        catch
-                        {
+                            catch
+                            {
+                            }
                         }
                     }
                 }
-            }
         }
+
 
         /// <summary>
         /// reads all lines from a txt file and writing them on a console
