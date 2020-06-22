@@ -40,6 +40,9 @@ namespace MatrixGenerator
             Console.ReadLine();
         }
 
+        /// <summary>
+        /// generating a 100x100 matrix
+        /// </summary>
         public static void GenerateMatrix()
         {
             matrix = new int[100, 100];
@@ -65,6 +68,9 @@ namespace MatrixGenerator
             }
         }
 
+        /// <summary>
+        /// generating an array of 10000 random numbers
+        /// </summary>
         public static void GenerateNumbers()
         {
             lock (l)
@@ -80,6 +86,10 @@ namespace MatrixGenerator
             }
         }
 
+        /// <summary>
+        /// putting all numbers from the matrix to an array and writing them to a txt file
+        /// </summary>
+        /// <param name="matrix"></param>
         public static void MatrixToArray(int[,] matrix)
         {
             arrayForFile = new int[10000];
@@ -107,6 +117,9 @@ namespace MatrixGenerator
             }
         }
 
+        /// <summary>
+        /// reads all lines from a txt file and writing them on a console
+        /// </summary>
         public static void ReadFromFile()
         {
             try
